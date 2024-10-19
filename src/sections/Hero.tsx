@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import Typical from "react-typical";
+import { useTypewriter, Cursor } from 'react-simple-typewriter';
 
 // Importing icons for the floating navbar (SVGs or images)
 import ClipboardIcon from "@/assets/resume copy.png";
@@ -31,6 +31,13 @@ export const Hero = () => {
     hidden: { rotateX: 90, opacity: 0 },
     visible: { rotateX: 0, opacity: 1 },
   };
+
+  // Use the useTypewriter hook
+  const [text] = useTypewriter({
+    words: ['Developer', 'Blender Artist', 'Programmer', 'Student'],
+    loop: 0, // Change this to a number for finite loops or set to Infinity for infinite looping
+    delaySpeed: 2000,
+  });
 
   useEffect(() => {
     window.botpressWebChat = {
@@ -100,7 +107,7 @@ export const Hero = () => {
             className="w-5 h-12 bg-blue-500 rounded-lg flex items-center justify-center transition-transform duration-300 ease-in-out absolute right-0 group-hover:w-32 group-hover:bg-blue-600"
             title="CP Profiles"
           >
-            <span className="text-white opacity-0 transition-opacity  ease-in-out group-hover:opacity-100">
+            <span className="text-white opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100">
               CP Profiles
             </span>
           </a>
@@ -206,42 +213,8 @@ export const Hero = () => {
           variants={flipVariant}
           transition={{ duration: 3, delay: 0.2 }}
         >
-          <Typical
-            steps={[
-              "Developer",
-              1500,
-              "Blender Artist",
-              1500,
-              "Programmer",
-              1500,
-              "Student",
-              1500,
-              "Designer",
-              1500,
-            ]}
-            loop={Infinity}
-            wrapper="span"
-          />
+          {text} <Cursor />
         </motion.h1>
-
-        {/* Buttons */}
-        <div className="flex space-x-4 mt-8">
-          <a
-            href="/assets/resume.pdf" // Replace with the actual path to your PDF file
-            target="_blank" // Opens the PDF in a new tab
-            rel="noopener noreferrer" // Security enhancement
-            className="px-6 py-3 bg-blue-500 text-white rounded-lg text-lg hover:bg-blue-600 transition duration-300"
-          >
-            View Resume
-          </a>
-
-          <a
-            href="https://github.com/vidyadhardinde001"
-            className="px-6 py-3 bg-gray-800 text-white rounded-lg text-lg hover:bg-gray-900 transition duration-300"
-          >
-            Visit GitHub
-          </a>
-        </div>
       </div>
     </section>
   );
